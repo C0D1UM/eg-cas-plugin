@@ -7,7 +7,7 @@ CAS plugin for [Express Gateway](http://www.express-gateway.io/) with external D
 Simply type from your shell environment:
 
 ```bash
-eg plugin install express-gateway-plugin-cas
+eg plugin install eg-cas-plugin
 ```
 
 ## Quick start
