@@ -34,7 +34,7 @@ export default (gatewayExpressApp: Application) => {
 			try {
 				const user = await User.findOne({ where: { username } });
 				if (!user) {
-					return ResponseUtil.sendInvalidId(res);
+					return ResponseUtil.sendNotFound(res);
 				}
 				return res.json(getUserView(user));
 			} catch (error) {
