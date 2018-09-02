@@ -51,6 +51,17 @@ describe('User routes', () => {
 		expect(data.email).toBe(email);
 	});
 
+	test('should not found user via email', async() => {
+		try {
+			await axiosInstance.get(
+				'auth/user/email/wrong@mail.com', 
+				{ headers: apiKeyAuthHeader }
+			);
+		} catch (error) {
+			expect(error.response.status).toBe(404)
+		}
+	});
+
 	test('should create test user', async () => {
 		expect.assertions(1);
 		const { data } = await axiosInstance.post('/auth/user', testCredential, {

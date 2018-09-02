@@ -47,7 +47,7 @@ export default (gatewayExpressApp: Application) => {
 		'/auth/user/email/:email',
 		corsMiddleware,
 		apiKeyAuthorize,
-		asyncifyHandler(async (req, res, next) =>{
+		asyncifyHandler(async (req, res, next) => {
 			const email = req.params.email;
 			try {
 				const user = await User.findOne({ where : { email } });
