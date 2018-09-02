@@ -6,9 +6,11 @@ import app from './app';
 
 export const username = 'test';
 export const password = 'password123';
+export const email = 'test@mail.com';
 export const credential = {
-	username,
-	password
+	username: username,
+	password: password,
+	email: email,
 };
 
 export const axiosInstance = axios.create({
@@ -47,7 +49,6 @@ export const initTestConfig = async (done: jest.DoneCallback) => {
 			await axiosInstance.post('/auth/user', credential, {
 				headers: apiKeyAuthHeader
 			});
-			// tslint:disable-next-line:no-empty
 		} catch (error) {}
 
 		try {
