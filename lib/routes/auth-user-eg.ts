@@ -5,6 +5,7 @@ import { corsMiddleware, jsonMiddleware } from './../middleware';
 import { asyncifyHandler } from './../utils/async-handler';
 import { ResponseUtil } from './../utils/response-util';
 import { getUserView, getUserViews } from './../utils/user-util';
+import { async } from 'q';
 
 export default (gatewayExpressApp: Application) => {
 	gatewayExpressApp.options('/auth/user', corsMiddleware);
@@ -35,6 +36,22 @@ export default (gatewayExpressApp: Application) => {
 				if (!user) {
 					return ResponseUtil.sendInvalidId(res);
 				}
+				return res.json(getUserView(user));
+			} catch (error) {
+				next(error);
+			}
+		})
+	);
+
+	gatewayExpressApp.get(
+		'/auth/user/email/:email',
+		corsMiddleware,
+		apiKeyAuthorize,
+		asyncifyHandler(async (req, res, next) =>{
+			const email = req.params.email;
+			try {
+				const user = await User.findOne({ where : { email } });
+				if (!user) { return ResponseUtil.sendInvalidId(res); }
 				return res.json(getUserView(user));
 			} catch (error) {
 				next(error);
