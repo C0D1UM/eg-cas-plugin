@@ -36,6 +36,13 @@ export class ResponseUtil {
 			message: 'Invalid ID'
 		});
 
+	public static sendNotFound = (res: Response) =>
+		res.status(404).json({
+			name: 'Not Found',
+			code: 104,
+			message: 'Object not found',
+		});
+
 	public static sendValidationError = (res: Response, errors: any[]) =>
 		res.status(400).json({
 			name: 'ValidationError',
