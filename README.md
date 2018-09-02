@@ -112,6 +112,33 @@ For example, see [`custom-user-model.js`](https://gist.github.com/WhatTheFar/a8f
 
 [drf-with-eg-cas](https://github.com/WhatTheFar/drf-with-eg-cas-example) is an example usecase of this plugin on top [Express gateway](https://www.express-gateway.io/) and [Django REST framework](http://www.django-rest-framework.org/) api
 
+## Running Test
+Make sure you have the required environment variable as sample below
+```
+export DATABASE_URL=postgres://postgres:password@localhost:5432/postgres
+export AUTH_HEADER=auth-user
+export JWT_SECRET=this_is_a_secret
+export ADMIN_KEY=this_is_an_admin_api_key
+```
+
+To able to run test first we will need a running server for requesting.
+```
+$ npm run start
+```
+
+Then open a new terminal (make sure you are in project directory), so that we can run our unit test with jest.
+
+```
+$ npm run test
+```
+
+Note that when you are developing you tend to change code often and every time you change code you must compile it. So to make thing easy, open another terminal window (make sure you are in project directory) and run
+```
+$ npm run watch-ts
+```
+
+**Note:** When code changed and compiled you must restart server manually.
+
 ---
 
 ### Detailed documentation:
