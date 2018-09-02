@@ -7,7 +7,8 @@ import {
 	disposeTestConfig,
 	initTestConfig,
 	jwtAuthHeader,
-	username
+	username,
+	email,
 } from './config';
 
 beforeAll(async done => {
@@ -21,7 +22,8 @@ afterAll(done => {
 describe('User routes', () => {
 	const testCredential = {
 		username: 'test2',
-		password: 'password123'
+		password: 'password123',
+		email: 'test@mail.com',
 	};
 	test('should get users', async () => {
 		expect.assertions(1);
@@ -38,6 +40,15 @@ describe('User routes', () => {
 		});
 		expect(status).toBe(200);
 		expect(data.username).toBe(username);
+	});
+
+	test('should get a test user via email', async () => {
+		const { status, data } = await axiosInstance.get(`/auth/user/email/${email}`, {
+			headers: apiKeyAuthHeader
+		});
+		expect(status).toBe(200);
+		expect(data.username).toBe(username);
+		expect(data.email).toBe(email);
 	});
 
 	test('should create test user', async () => {
