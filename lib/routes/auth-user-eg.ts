@@ -83,6 +83,23 @@ export default (gatewayExpressApp: Application) => {
 		})
 	);
 
+	gatewayExpressApp.post(
+		'/auth/user/list',
+		corsMiddleware,
+		jsonMiddleware,
+		apiKeyAuthorize,
+		asyncifyHandler(async (req, res, next) => {
+			try {
+				const users = await User.bulkCreate({
+					...req.body
+				});
+				return res.json(getUserViews(users));
+			} catch (error) {
+				return ResponseUtil.sendValidationError(res, error.errors);
+			}
+		})
+	);
+
 	gatewayExpressApp.put(
 		'/auth/user/:username',
 		corsMiddleware,
